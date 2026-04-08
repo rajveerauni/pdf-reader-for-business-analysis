@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { InsightsDashboard } from "./components/InsightsDashboard";
 import { PdfUploader } from "./components/PdfUploader";
@@ -8,6 +8,10 @@ import { extractTextFromPdf } from "./lib/pdf";
 import type { Insights } from "./types/insights";
 
 function App() {
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    const saved = localStorage.getItem("ui-theme");
+    return saved === "light" ? "light" : "dark";
+  });
   const [insights, setInsights] = useState<Insights | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +20,10 @@ function App() {
     null,
   );
   const [pdfFullText, setPdfFullText] = useState<string | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("ui-theme", theme);
+  }, [theme]);
 
   const handleFileSelect = async (file: File) => {
     setError(null);
@@ -41,14 +49,23 @@ function App() {
   };
 
   return (
-    <main className="min-h-screen text-slate-100">
+    <main className={`min-h-screen text-slate-100 ${theme === "light" ? "theme-light" : "theme-dark"}`}>
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 lg:grid-cols-12 lg:gap-8 lg:px-8">
         <aside className="lg:col-span-3">
           <div className="sticky top-6 space-y-4">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">
-                PDF Intelligence
-              </p>
+              <div className="flex items-start justify-between gap-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-300">
+                  PDF Intelligence
+                </p>
+                <button
+                  type="button"
+                  className="rounded-full border border-slate-700 bg-slate-950/50 px-3 py-1 text-xs font-semibold text-slate-200 transition hover:border-slate-500"
+                  onClick={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
+                >
+                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                </button>
+              </div>
               <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-100">
                 Insight Dashboard
               </h1>
