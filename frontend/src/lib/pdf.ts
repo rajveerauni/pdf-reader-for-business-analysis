@@ -6,7 +6,17 @@ GlobalWorkerOptions.workerSrc = workerSrc;
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 const MAX_PAGES = 60;
 
-export async function extractTextFromPdf(file: File): Promise<string> {
+export type PdfPageText = {
+  pageNumber: number;
+  text: string;
+};
+
+export type PdfExtractResult = {
+  fullText: string;
+  pages: PdfPageText[];
+};
+
+export async function extractTextFromPdf(file: File): Promise<PdfExtractResult> {
   if (file.type !== "application/pdf") {
     throw new Error("Only PDF files are supported.");
   }
@@ -22,7 +32,7 @@ export async function extractTextFromPdf(file: File): Promise<string> {
     throw new Error(`PDF has too many pages (${pdf.numPages}). Max is ${MAX_PAGES}.`);
   }
 
-  const pages: string[] = [];
+  const pages: PdfPageText[] = [];
   for (let pageNum = 1; pageNum <= pdf.numPages; pageNum += 1) {
     const page = await pdf.getPage(pageNum);
     const content = await page.getTextContent();
@@ -32,14 +42,14 @@ export async function extractTextFromPdf(file: File): Promise<string> {
       .replace(/\s+/g, " ")
       .trim();
     if (pageText) {
-      pages.push(pageText);
+      pages.push({ pageNumber: pageNum, text: pageText });
     }
   }
 
-  const text = pages.join("\n");
-  if (text.length < 100) {
+  const fullText = pages.map((p) => `[Page ${p.pageNumber}] ${p.text}`).join("\n");
+  if (fullText.length < 100) {
     throw new Error("Could not extract enough readable text from this PDF.");
   }
 
-  return text;
+  return { fullText, pages };
 }

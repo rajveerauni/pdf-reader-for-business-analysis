@@ -26,19 +26,18 @@ export function PdfUploader({ onSelect, disabled = false }: PdfUploaderProps) {
   return (
     <div
       {...getRootProps()}
-      className={`rounded-2xl border border-dashed p-8 transition ${
+      className={`rounded-3xl border border-dashed p-5 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl transition ${
         isDragActive
-          ? "border-blue-400 bg-blue-500/10"
-          : "border-slate-700 bg-slate-900/60 hover:border-slate-500"
+          ? "border-blue-300 bg-blue-500/10"
+          : "border-white/10 bg-white/5 hover:border-white/20"
       } ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
     >
       <input {...getInputProps()} />
-      <p className="text-lg font-medium text-slate-100">
-        Drag and drop a PDF, or click to upload
+      <p className="text-sm font-semibold text-slate-100">Upload PDF</p>
+      <p className="mt-2 text-sm text-slate-300">
+        Drag & drop or click. We’ll extract text and generate insights.
       </p>
-      <p className="mt-2 text-sm text-slate-400">
-        Max 10MB, up to 60 pages. Financial statements and investor decks work best.
-      </p>
+      <p className="mt-2 text-xs text-slate-500">Max 10MB • Up to 60 pages</p>
     </div>
   );
 }

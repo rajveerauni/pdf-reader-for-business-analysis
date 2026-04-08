@@ -67,6 +67,35 @@ Response body:
 }
 ```
 
+`POST /api/qa`
+
+Request body:
+
+```json
+{
+  "question": "What changed in revenue and why?",
+  "chunks": [
+    { "id": "p3", "pageNumber": 3, "text": "..." }
+  ],
+  "fileName": "report.pdf"
+}
+```
+
+Response body:
+
+```json
+{
+  "qa": {
+    "answer": "string",
+    "citations": [
+      { "pageNumber": 3, "quote": "string", "reason": "string" }
+    ],
+    "followUps": ["string"],
+    "confidence": 0.0
+  }
+}
+```
+
 ## Scripts
 
 - Root:
