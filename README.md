@@ -1,6 +1,6 @@
-# Groq PDF Insight Dashboard
+# PDF Insight Dashboard
 
-A production-style app that extracts text from PDF business documents, sends it to Groq through a secure backend proxy, and renders detailed business insights in a dark-themed React dashboard.
+A tool that lets you upload any business PDF and instantly get AI-powered insights on revenue, risks, growth and opportunities
 
 ## Stack
 
