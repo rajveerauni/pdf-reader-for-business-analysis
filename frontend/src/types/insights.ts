@@ -22,3 +22,18 @@ export type Insights = {
 export type AnalyzeResponse = {
   insights: Insights;
 };
+
+export type QaCitation = {
+  pageNumber?: number;
+  quote: string;
+  reason: string;
+};
+
+export type QaResponse = {
+  qa: {
+    answer: string;
+    citations: QaCitation[];
+    followUps: string[];
+    confidence: number;
+  };
+};

@@ -4,6 +4,7 @@ import cors from "cors";
 import express from "express";
 
 import { analyzeRouter } from "./routes/analyze.js";
+import { qaRouter } from "./routes/qa.js";
 
 const app = express();
 const PORT = Number(process.env.PORT ?? 8787);
@@ -21,6 +22,7 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.use("/api/analyze", analyzeRouter);
+app.use("/api/qa", qaRouter);
 
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
