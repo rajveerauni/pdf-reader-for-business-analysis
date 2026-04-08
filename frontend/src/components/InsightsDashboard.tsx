@@ -5,28 +5,58 @@ import { InsightCard } from "./InsightCard";
 type InsightsDashboardProps = {
   insights: Insights | null;
   isLoading: boolean;
+  theme?: "dark" | "light";
 };
 
-export function InsightsDashboard({ insights, isLoading }: InsightsDashboardProps) {
+export function InsightsDashboard({
+  insights,
+  isLoading,
+  theme = "dark",
+}: InsightsDashboardProps) {
   const confidence = insights ? Math.round(insights.confidence * 100) : null;
+  const isLight = theme === "light";
 
   return (
     <div className="space-y-5">
-      <section className="rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-900/90 via-slate-900/80 to-blue-900/30 p-5">
+      <section
+        className={`rounded-2xl border p-5 ${
+          isLight
+            ? "border-slate-300 bg-gradient-to-r from-white via-slate-50 to-blue-50"
+            : "border-slate-800 bg-gradient-to-r from-slate-900/90 via-slate-900/80 to-blue-900/30"
+        }`}
+      >
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-widest text-blue-300">Executive Summary</p>
+            <p
+              className={`text-xs uppercase tracking-widest ${
+                isLight ? "text-blue-700" : "text-blue-300"
+              }`}
+            >
+              Executive Summary
+            </p>
             {isLoading ? (
-              <div className="mt-3 h-4 w-3/4 animate-pulse rounded bg-slate-700" />
+              <div
+                className={`mt-3 h-4 w-3/4 animate-pulse rounded ${
+                  isLight ? "bg-slate-300" : "bg-slate-700"
+                }`}
+              />
             ) : (
-              <p className="mt-3 max-w-4xl text-slate-200">
+              <p className={`mt-3 max-w-4xl ${isLight ? "text-slate-700" : "text-slate-200"}`}>
                 {insights?.summary ?? "Upload and analyze a business document to generate insights."}
               </p>
             )}
           </div>
-          <div className="rounded-xl border border-slate-700 bg-slate-950/50 px-3 py-2 text-xs text-slate-300">
-            <p className="uppercase tracking-widest text-slate-400">Confidence</p>
-            <p className="mt-1 text-lg font-semibold text-slate-100">
+          <div
+            className={`rounded-xl border px-3 py-2 text-xs ${
+              isLight
+                ? "border-slate-300 bg-white/90 text-slate-700"
+                : "border-slate-700 bg-slate-950/50 text-slate-300"
+            }`}
+          >
+            <p className={`uppercase tracking-widest ${isLight ? "text-slate-500" : "text-slate-400"}`}>
+              Confidence
+            </p>
+            <p className={`mt-1 text-lg font-semibold ${isLight ? "text-slate-900" : "text-slate-100"}`}>
               {confidence !== null ? `${confidence}%` : "N/A"}
             </p>
           </div>

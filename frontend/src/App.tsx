@@ -103,7 +103,7 @@ function App() {
 
         <section className="space-y-6 lg:col-span-9">
           <PdfQaPanel fileName={selectedFileName} pages={pdfPages} />
-          <InsightsDashboard insights={insights} isLoading={isLoading} />
+          <InsightsDashboard insights={insights} isLoading={isLoading} theme={theme} />
         </section>
       </div>
     </main>
