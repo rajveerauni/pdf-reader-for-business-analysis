@@ -2,6 +2,9 @@
 
 A tool that lets you upload any business PDF and instantly get AI-powered insights on revenue, risks, growth and opportunities
 
+
+![App Screenshot](Screenshot 2026-04-08 153010.png)
+
 ## Stack
 
 - Frontend: React + Vite + Tailwind CSS + `react-dropzone` + `pdfjs-dist`
