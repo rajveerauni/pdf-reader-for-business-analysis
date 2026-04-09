@@ -1,0 +1,15 @@
+feature,gain
+payment_consistency_score,0.0
+income_stability_index,0.0
+financial_footprint_score,0.0
+cashflow_stress_indicator,0.0
+debt_service_capacity_ratio,0.0
+essential_spend_ratio,0.0
+rent_timeliness_ratio,0.0
+delinquency_intensity,0.0
+leverage_proxy,0.0
+requested_loan_burden,0.0
+employment_resilience,0.0
+net_wallet_buffer,0.0
+narrative_sentiment_score,0.0
+narrative_credibility_score,0.0
